@@ -7,6 +7,8 @@ import java.time.LocalDateTime;
 @Table(name = "users")
 public class User {
 
+    private String role = "USER";
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
