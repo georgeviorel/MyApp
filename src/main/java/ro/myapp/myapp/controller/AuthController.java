@@ -1,9 +1,11 @@
 package ro.myapp.myapp.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import ro.myapp.myapp.dto.LoginRequest;
+import ro.myapp.myapp.dto.LoginResponse;
 import ro.myapp.myapp.dto.RegisterRequest;
 import ro.myapp.myapp.dto.UserProfileResponse;
 import ro.myapp.myapp.service.AuthService;
@@ -23,9 +25,12 @@ import org.springframework.security.core.Authentication;
    }
 
     @PostMapping("/login")
-    public String login(
-            @RequestBody LoginRequest request) {
-        return authService.login(request);
+    public ResponseEntity<LoginResponse> login(
+            @RequestBody LoginRequest request
+    ) {
+        return ResponseEntity.ok(
+                authService.login(request)
+        );
     }
 
     @GetMapping("/me")

@@ -47,32 +47,34 @@ public class AuthService {
 
         return "Utilizator creat";
     }
-
-    public String login(LoginRequest request) {
+    public LoginResponse login(LoginRequest request) {
 
         User user = userRepository.findByEmail(
                 request.getEmail()
         ).orElse(null);
 
         if (user == null) {
-            return "Email sau parola invalida";
+            throw new ResponseStatusException(
+                    HttpStatus.UNAUTHORIZED,
+                    "Email sau parola invalida"
+            );
         }
 
         if (!encoder.matches(
                 request.getPassword(),
                 user.getPassword())) {
 
-            return "Email sau parola invalida";
+            throw new ResponseStatusException(
+                    HttpStatus.UNAUTHORIZED,
+                    "Email sau parola invalida"
+            );
         }
+
         String token = jwtService.generateToken(
                 user.getEmail()
         );
 
-        //return token;
-        return jwtService.generateToken(
-                user.getEmail()
-        );
-
+        return new LoginResponse(token);
     }
 
     public UserProfileResponse getProfile(
