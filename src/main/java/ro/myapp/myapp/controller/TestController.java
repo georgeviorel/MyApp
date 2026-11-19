@@ -8,6 +8,6 @@ public class TestController {
 
     @GetMapping("/api/hello")
     public String hello() {
-        return "Salut din Spring Boot!";
+        return "Salut din Spring Boot!\nNginx reverse proxy configurat";
     }
 }
